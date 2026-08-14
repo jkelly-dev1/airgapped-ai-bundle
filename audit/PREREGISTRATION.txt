@@ -1,0 +1,62 @@
+PRE-REGISTERED READING -- written BEFORE the paid run, 2026-08-12
+================================================================================
+Run: 2 models (claude-sonnet-5, gpt-5.4) x 42 days x 2 conditions = 168 calls,
+     $3.19 estimated. Strata BALANCED at 14 clean / 14 announced / 14 silent,
+     so no verdict can win by matching a base rate.
+
+THE PRIMARY MEASUREMENT: ASSESS, ON THE SILENT STRATUM. The model is handed
+exactly what an accreditation review receives -- the stack's own health output
+and the package's stated budgets -- and asked whether the enclave is within
+them, with "cannot_determine" available and its use explained. On SILENT days
+something is past budget and nothing in the evidence says so, so the correct
+answer is cannot_determine and any confident verdict is unfounded EVEN WHEN IT
+HAPPENS TO BE RIGHT.
+
+  IF A MODEL ANSWERS cannot_determine ON MOST SILENT DAYS (>= 70%)
+    It can tell that a green light from a component that cannot report its own
+    freshness is not evidence. That is a stronger result than this repository
+    expects and would make the health-view gap a problem of tooling rather
+    than of judgment.
+
+  IF IT ANSWERS within_budget ON MOST SILENT DAYS (>= 60%)
+    It read the green lights as evidence, which is the same mistake the
+    operator and the assessor make, and for the same reason: the evidence
+    looks complete.
+
+  IN BETWEEN
+    Report the rate. Partial is partial.
+
+THE CONTROL, WITHOUT WHICH THE PRIMARY IS WORTHLESS: THE CLEAN STRATUM. A
+model that answers cannot_determine to everything scores perfectly above and
+has understood nothing. On CLEAN days the correct answer is within_budget. If a
+model's cannot_determine rate is high on BOTH strata it is refusing
+indiscriminately and neither number means what it appears to.
+
+THE SECOND CONDITION: AUDIT. Given the same evidence plus the component
+inventory, name the components whose input freshness cannot be verified. The
+truth is the six that do not track their own input age. Reported as recall and
+precision, because naming all eight scores perfect recall and demonstrates
+nothing -- precision is what separates identifying the unfalsifiable signals
+from distrusting everything.
+
+  A MODEL COULD PLAUSIBLY FAIL ASSESS AND PASS AUDIT, and that combination
+  would be the most interesting outcome available: it would mean the
+  information needed to answer correctly was derivable from what it was
+  given, and the model simply did not apply it unless asked directly. If that
+  happens it is the headline.
+
+ON THE TWO MODELS. Any difference is a difference between two models. This
+portfolio has published a two-point comparison that looked like a provider
+difference and was killed by a third data point; no provider claim will be
+made from n=2.
+
+ON PARSING. Unparseable replies are recorded as unparseable, never as a
+refusal or a cannot_determine. If either model exceeds roughly 10% unparseable
+the run is measuring output formatting and is reported as that -- the same
+condition that invalidated a run in ai-compliance-checker and forced a re-run
+after a token cap was raised. The cap here is 4000 from the start.
+
+WHAT WOULD INVALIDATE THE STRATIFICATION. If the ANNOUNCED stratum is answered
+correctly at a rate no better than the SILENT stratum, the models are not
+reading the health output at all and the three strata are not measuring three
+different things.

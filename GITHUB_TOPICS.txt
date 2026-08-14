@@ -1,0 +1,10 @@
+air-gapped
+sovereign-ai
+enclave
+accreditation
+compliance
+observability
+staleness
+supply-chain
+measurement
+python

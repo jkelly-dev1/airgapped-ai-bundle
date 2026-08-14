@@ -1,0 +1,166 @@
+{
+  "note": "A deployment pattern, not any vendor's software. Rates are stated constants in enclave/timeline.py.",
+  "stack": {
+    "components": 8,
+    "silent": 6,
+    "announces": 2,
+    "silent_keys": [
+      "model_weights",
+      "model_revocation",
+      "cve_feed",
+      "rag_corpus",
+      "eval_baseline",
+      "time_source"
+    ],
+    "health_reports_age": 2
+  },
+  "year": {
+    "days": 730,
+    "days_with_something_stale": 697,
+    "days_with_something_stale_pct": 95.5,
+    "days_with_silent_staleness": 683,
+    "days_with_silent_staleness_pct": 93.6,
+    "days_stale_with_nothing_saying_so": 629,
+    "days_stale_with_nothing_saying_so_pct": 86.2,
+    "days_with_something_stale_excluding_clock": 392,
+    "days_stale_with_nothing_saying_so_excluding_clock": 324,
+    "days_stale_with_nothing_saying_so_excluding_clock_pct": 44.4,
+    "per_component": {
+      "model_weights": {
+        "stale_days": 0,
+        "stale_pct": 0.0,
+        "behavior": "fail_open_quiet",
+        "budget_days": 180,
+        "max_age_days": 179,
+        "announces": false
+      },
+      "model_revocation": {
+        "stale_days": 100,
+        "stale_pct": 13.7,
+        "behavior": "fail_open_quiet",
+        "budget_days": 45,
+        "max_age_days": 89,
+        "announces": false
+      },
+      "policy_bundle": {
+        "stale_days": 68,
+        "stale_pct": 9.3,
+        "behavior": "degrade_loud",
+        "budget_days": 21,
+        "max_age_days": 41,
+        "announces": true
+      },
+      "cve_feed": {
+        "stale_days": 72,
+        "stale_pct": 9.9,
+        "behavior": "fail_open_quiet",
+        "budget_days": 45,
+        "max_age_days": 89,
+        "announces": false
+      },
+      "container_images": {
+        "stale_days": 0,
+        "stale_pct": 0.0,
+        "behavior": "degrade_loud",
+        "budget_days": 60,
+        "max_age_days": 59,
+        "announces": true
+      },
+      "rag_corpus": {
+        "stale_days": 18,
+        "stale_pct": 2.5,
+        "behavior": "fail_open_quiet",
+        "budget_days": 14,
+        "max_age_days": 20,
+        "announces": false
+      },
+      "eval_baseline": {
+        "stale_days": 194,
+        "stale_pct": 26.6,
+        "behavior": "fail_open_quiet",
+        "budget_days": 120,
+        "max_age_days": 314,
+        "announces": false
+      },
+      "time_source": {
+        "stale_days": 667,
+        "stale_pct": 91.4,
+        "behavior": "fail_open_quiet",
+        "budget_days": 7,
+        "max_age_days": 179,
+        "announces": false
+      }
+    }
+  },
+  "artifact": {
+    "days": 730,
+    "distinct_views_clean": 242,
+    "distinct_views_silent": 222,
+    "views_occurring_in_both": 134,
+    "clean_days": 338,
+    "silent_days": 324,
+    "clean_days_ambiguous": 210,
+    "silent_days_ambiguous": 186,
+    "clean_days_ambiguous_pct": 62.1,
+    "silent_days_ambiguous_pct": 57.4,
+    "example": {
+      "clean_days_with_this_view": [
+        47
+      ],
+      "silent_days_with_this_view": [
+        257,
+        467,
+        677
+      ],
+      "the_view": {
+        "overall": "ok",
+        "reported": {
+          "container_images": {
+            "detail": "current",
+            "input_age_days": 17,
+            "status": "ok"
+          },
+          "cve_feed": {
+            "detail": "serving normally",
+            "status": "ok"
+          },
+          "eval_baseline": {
+            "detail": "serving normally",
+            "status": "ok"
+          },
+          "model_revocation": {
+            "detail": "serving normally",
+            "status": "ok"
+          },
+          "model_weights": {
+            "detail": "serving normally",
+            "status": "ok"
+          },
+          "policy_bundle": {
+            "detail": "current",
+            "input_age_days": 5,
+            "status": "ok"
+          },
+          "rag_corpus": {
+            "detail": "serving normally",
+            "status": "ok"
+          },
+          "time_source": {
+            "detail": "serving normally",
+            "status": "ok"
+          }
+        },
+        "stated_budgets": {
+          "container_images": 60,
+          "cve_feed": 45,
+          "eval_baseline": 120,
+          "model_revocation": 45,
+          "model_weights": 180,
+          "policy_bundle": 21,
+          "rag_corpus": 14,
+          "time_source": 7
+        }
+      }
+    }
+  }
+}
