@@ -1,0 +1,3043 @@
+{
+  "note": "Balanced strata, not representative. The model is given the assessor view -- health output plus stated budgets -- which is what an accreditation review receives.",
+  "models": [
+    "claude-sonnet-5",
+    "gpt-5.4"
+  ],
+  "per_stratum": 14,
+  "pricing_verified": "2026-08-11",
+  "elapsed_s": 579.1,
+  "actual_cost_usd": 0.6873,
+  "tokens": {
+    "claude-sonnet-5_in": 67578,
+    "claude-sonnet-5_out": 18189,
+    "gpt-5.4_in": 46550,
+    "gpt-5.4_out": 16923
+  },
+  "records": [
+    {
+      "model": "claude-sonnet-5",
+      "day": 281,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 229,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 281,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 200,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 480,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 117,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 480,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 190,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 722,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 254,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 722,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 196,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 449,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 169,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 449,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 271,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 179,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 303,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 179,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 281,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 499,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 149,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 499,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 224,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 251,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 196,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 251,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 219,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 368,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 137,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 368,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 208,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 727,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 236,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 727,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 169,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 388,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 192,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 388,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 165,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 494,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 171,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 494,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 192,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 279,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 131,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 279,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 186,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 94,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 184,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 94,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 219,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 393,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 169,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 393,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 231,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 65,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 229,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 65,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 239,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 676,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 206,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 676,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 184,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 461,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 209,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 461,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 172,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 76,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 193,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 76,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 252,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 474,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 249,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 474,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 171,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 714,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 324,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 714,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 216,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 152,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 304,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 152,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 199,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 702,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 209,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 702,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 188,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 69,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 173,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 69,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 269,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 708,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 189,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 708,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 211,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 349,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 287,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 349,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 238,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 730,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 172,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 730,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 164,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 27,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 267,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 27,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 261,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 348,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 364,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 348,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 243,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 149,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 286,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 149,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 264,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 48,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 242,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 48,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 174,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 147,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 223,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 147,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 231,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 217,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 211,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 217,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 226,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 68,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 205,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 68,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 235,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 641,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 158,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 641,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 208,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 639,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 233,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 639,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 230,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 628,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 398,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 628,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 259,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 429,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 287,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 429,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 201,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 454,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 185,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 454,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 98,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 598,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 139,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 598,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 184,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 95,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 268,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 95,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 238,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 613,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 174,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 613,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 190,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 444,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 244,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "day": 444,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "end_turn",
+      "output_tokens": 228,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 281,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 154,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 281,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 144,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 480,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 199,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 480,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 197,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 722,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 122,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 722,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 187,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 449,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 240,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 449,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 206,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 179,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 258,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 179,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 325,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 499,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 170,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 499,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 190,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 251,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 219,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 251,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 282,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 368,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 172,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 368,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 210,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 727,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 234,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 727,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 173,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 388,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 144,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 388,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 212,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 494,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 166,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 494,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 211,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 279,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 153,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 279,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 243,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 94,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 116,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 94,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 302,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 393,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 114,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 393,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 240,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 65,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 112,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 65,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 391,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 676,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 123,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 676,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 199,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 461,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 135,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 461,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 184,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 76,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 121,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 76,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 385,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 474,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 145,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 474,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 186,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 714,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 140,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 714,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 165,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 152,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 115,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 152,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 251,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 702,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 122,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 702,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 218,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 69,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 292,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 69,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 356,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 708,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 145,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 708,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 253,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 349,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 141,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 349,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 320,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 730,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 113,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 730,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 189,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 27,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 149,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 27,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 408,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 348,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 83,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 348,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 262,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 149,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 159,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 149,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 352,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 48,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 171,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 48,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 129,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 147,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 132,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 147,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 221,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 217,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 110,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 217,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 164,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 68,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 208,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 68,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 269,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 641,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 136,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 641,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 250,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 639,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 195,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 639,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 328,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 628,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 181,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 628,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 248,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 429,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 97,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 429,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 250,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 454,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 149,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 454,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 182,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 598,
+      "stratum": "silent",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 126,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 598,
+      "stratum": "silent",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 281,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 95,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 123,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 95,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 252,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 613,
+      "stratum": "clean",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 161,
+      "verdict": "cannot_determine",
+      "correct": "cannot_determine"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 613,
+      "stratum": "clean",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 211,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 444,
+      "stratum": "announced",
+      "condition": "assess",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 135,
+      "verdict": "outside_budget",
+      "correct": "outside_budget"
+    },
+    {
+      "model": "gpt-5.4",
+      "day": 444,
+      "stratum": "announced",
+      "condition": "audit",
+      "parsed": true,
+      "stop_reason": "completed",
+      "output_tokens": 417,
+      "named": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ],
+      "truth_unverifiable": [
+        "model_weights",
+        "model_revocation",
+        "cve_feed",
+        "rag_corpus",
+        "eval_baseline",
+        "time_source"
+      ]
+    }
+  ]
+}

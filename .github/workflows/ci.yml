@@ -1,0 +1,59 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # One job, and it installs nothing but pytest. Every number in the README
+  # (the staleness table, the silence percentages, and the indistinguishability
+  # proof that leads it) comes from code importing only the standard library. A
+  # repository about a system that cannot reach the network should be able to
+  # prove its own claims without reaching one. If that stops being true this
+  # job goes red, which is the signal rather than an inconvenience.
+  measurement:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install pytest only
+        run: |
+          python -m pip install --upgrade pip
+          pip install "pytest>=8,<10"
+
+      # Three of these tests exist because of defects they caught: a component
+      # that could not go stale, a withdrawn claim about clock drift, and an
+      # assessor view that contained the answer key and voided a paid run.
+      - name: Tests
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: pytest -q -rs
+
+      - name: Offline measurement
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: python scripts/offline_demo.py --days 365
+
+      # A README is prose and drifts; audit/offline.json is evidence and does
+      # not. This rebuilds each published figure from the JSON and requires the
+      # exact string, so a re-run that shifts a number fails loudly rather than
+      # leaving the document quietly wrong.
+      - name: README numbers match the shipped results
+        run: python scripts/check_readme_numbers.py
