@@ -2,7 +2,7 @@
 """The paid half: can a model tell that a green health view proves nothing?
 
     ENV_FILE=~/.secrets/ai.env python scripts/real_run.py
-    ENV_FILE=~/.secrets/ai.env python scripts/real_run.py --confirm
+    ENV_FILE=~/.secrets/ai.env python scripts/real_run.py --confirm --out audit/new_run.json
 
 WITHOUT --confirm THIS SPENDS NOTHING.
 
@@ -256,7 +256,18 @@ def main() -> int:
     ap.add_argument("--max-cost", type=float, default=6.00)
     ap.add_argument("--confirm", action="store_true")
     ap.add_argument("--out", type=Path, default=Path("audit/real_run.json"))
+    ap.add_argument("--force", action="store_true",
+                    help="overwrite --out if it already exists")
     args = ap.parse_args()
+
+    # The default --out is the stored paid run, which README.md cites. A run
+    # that would write over an existing file refuses before anything is
+    # spent, unless --force says the overwrite is intended.
+    if args.confirm and args.out.exists() and not args.force:
+        print(f"REFUSING TO START: {args.out} already exists and is stored "
+              f"evidence.\n    Write elsewhere with --out, or pass --force to "
+              f"replace it.")
+        return 2
 
     days = sample(per_stratum=args.per_stratum)
     calls = len(days) * 2 * len(args.models)
@@ -275,12 +286,12 @@ def main() -> int:
     print(f"ESTIMATED COST   ${cost:.2f}  (list prices verified "
           f"{PRICING_VERIFIED})")
 
-    # The dry run must fail for every reason the real run would. The first
-    # version imported each SDK only after --confirm, so a dry run printed a
-    # cost estimate and a clean exit for a run that could not have started,
-    # and the real invocation died on ModuleNotFoundError after the operator
-    # had already decided to spend. A preflight that is not run in the dry
-    # path is not a preflight.
+    # The dry run must fail for every reason the real run would. Importing
+    # each SDK only after --confirm would let a dry run print a cost estimate
+    # and a clean exit for a run that could not start, and the real
+    # invocation would die on ModuleNotFoundError after the operator had
+    # already decided to spend. A preflight that is not run in the dry path
+    # is not a preflight.
     missing = []
     for prov in {PROVIDER[m] for m in args.models}:
         try:

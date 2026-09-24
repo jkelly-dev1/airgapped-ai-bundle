@@ -7,14 +7,18 @@ half regenerates with `scripts/offline_demo.py`; the paid half is in `audit/`.
 
 ```
 $ .venv/bin/python -m pytest -q
-.............
-17 passed in 0.02s
+.....................                                                    [100%]
+21 passed in 0.74s
 ```
 
 Three of them exist because of defects they caught: every component must be
 able to go stale (three could not, one structurally); the clock term must not
 change any verdict (a claim made and withdrawn); and the assessor view must not
-contain the answer key (it did, and it voided a paid run).
+contain the answer key (it did, and it voided a paid run). Two more hold the
+evidence under this document: one regenerates `audit/offline.json` and
+compares it byte-for-byte against what ships, and one asserts that the worked
+example in section 4 is derived from that file rather than written beside it.
+A transcript and the numbers it quotes are only worth what re-runs them.
 
 ## The offline measurement
 
@@ -51,9 +55,9 @@ no model was called   simulated days: 730
    distinct views seen on silent days    222
    views occurring in BOTH strata        134
    -> 210 of 338 clean days (62.1%) produce a view that also
-      occurs on a day something was months past budget
+      occurs on a day something was past budget with nothing saying so
    -> 186 of 324 silent days (57.4%) produce a view that also
-      occurs on a day when nothing was wrong at all
+      occurs on a day when nothing but the clock was stale
    The bytes are identical. No reader can distinguish them because
    there is nothing there to distinguish.
 

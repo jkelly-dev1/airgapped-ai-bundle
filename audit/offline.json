@@ -25,6 +25,9 @@
     "days_with_something_stale_excluding_clock": 392,
     "days_stale_with_nothing_saying_so_excluding_clock": 324,
     "days_stale_with_nothing_saying_so_excluding_clock_pct": 44.4,
+    "days_clean_excluding_clock": 338,
+    "days_clean_but_clock_past_budget": 305,
+    "days_with_nothing_stale_at_all": 33,
     "per_component": {
       "model_weights": {
         "stale_days": 0,
@@ -162,5 +165,39 @@
         }
       }
     }
+  },
+  "one_day": {
+    "day": 226,
+    "health_overall": "ok",
+    "past_budget": [
+      {
+        "key": "model_revocation",
+        "age_days": 46,
+        "budget_days": 45,
+        "days_past": 1,
+        "announces": false
+      },
+      {
+        "key": "rag_corpus",
+        "age_days": 16,
+        "budget_days": 14,
+        "days_past": 2,
+        "announces": false
+      },
+      {
+        "key": "eval_baseline",
+        "age_days": 136,
+        "budget_days": 120,
+        "days_past": 16,
+        "announces": false
+      },
+      {
+        "key": "time_source",
+        "age_days": 136,
+        "budget_days": 7,
+        "days_past": 129,
+        "announces": false
+      }
+    ]
   }
 }

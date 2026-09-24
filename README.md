@@ -13,12 +13,20 @@ The simulation runs on the standard library alone.
 
 ## The one-sentence result
 
-Over two years, 62% of the days on which the enclave was entirely healthy
-produce a status artifact that is byte-identical to one produced on a day when
-something was months past its budget. Not similar: identical. No reader can
-distinguish them because there is nothing there to distinguish.
+Over two years, 62% of the days on which nothing but the free-running clock was
+past budget produce a status artifact that is byte-identical to one produced on
+a day when something was past its budget and nothing anywhere said so. Not
+similar: identical. No reader can distinguish them because there is nothing
+there to distinguish.
 
-And the operational half: the enclave spends 54% of its days past a staleness
+Of those 338 days, 305 have the free-running clock past its own 7-day budget and
+33 have nothing stale at all. The clock is excluded throughout, for the reason
+given under [Two years](#two-years): it is past budget on most days by
+construction and it cannot change any other verdict. So "healthy" above means
+healthy in every respect that can change one, which is the only sense in which
+this page ever uses the word.
+
+And the operational half: the enclave spends 44% of its days past a staleness
 budget with nothing anywhere reporting it.
 
 ## Why the artifact cannot tell you
@@ -58,10 +66,10 @@ the silently-stale one:
   distinct views seen on silent days    222
   views occurring in BOTH strata        134
 
-  -> 210 of 338 clean days (62.1%) produce a view that also occurs
-     on a day something was months past budget
-  -> 186 of 324 silent days (57.4%) produce a view that also occurs
-     on a day when nothing was wrong at all
+  -> 210 of 338 clean days (62.1%) produce a view that also
+     occurs on a day something was past budget with nothing saying so
+  -> 186 of 324 silent days (57.4%) produce a view that also
+     occurs on a day when nothing but the clock was stale
 ```
 
 This is a property of the artifact's shape, not of any particular failure rate.
@@ -83,8 +91,19 @@ day 226
     time_source         ok        serving normally
 ```
 
-The revocation list is 89 days past a 45-day budget. Every light is green. The
+Past budget on day 226: `model_revocation` by 1 day, `rag_corpus` by 2 days,
+`eval_baseline` by 16 days, `time_source` by 129 days. Every light is green. The
 stack is not lying: each component is serving what it has, correctly.
+
+A day past a 45-day budget is not the dramatic case, and this is not the
+dramatic day. It is the day the run picks, and it is picked by how MANY things
+are silently stale rather than by how far past budget any of them is. The worst
+gap is elsewhere in the same window: `eval_baseline` reaches a maximum age of
+314 days in this window against a 120-day budget, 194 days past it. Every
+figure in this section is derived from `audit/offline.json` by
+`scripts/check_readme_numbers.py` rather than typed here, which matters more in
+this section than anywhere else on the page: a worked example is where a
+plausible number is hardest to check.
 
 ## Two years
 
@@ -101,6 +120,16 @@ Act on the right column. A free-running clock is past a 7-day budget on most
 days by construction, a true air gap has no NTP, and `tests/test_enclave.py`
 proves that staleness cannot change any other verdict. Quoting only the larger
 number would be this repository doing what it criticizes.
+
+Two of the eight components never go past budget at all in this window:
+`model_weights` (max age 179 d against a 180 d budget) and `container_images`
+(max age 59 d against a 60 d budget). Each has a budget of exactly twice its
+transfer cadence, so a single missed transfer tops out one day short of it and
+two consecutive misses are required. The percentages above are therefore
+carried by six of the eight rows in the table. That is a property of these
+stated constants and not of the effect being measured; both components do go
+stale over a five-year window, which
+`tests/test_enclave.py::test_every_component_can_actually_go_stale` checks.
 
 ## What two models did with the same artifact
 
@@ -152,6 +181,8 @@ pre-registration, written before the run, is in `audit/PREREGISTRATION.txt`.
 | The view handed to a model does not contain the answer key | `tests/test_enclave.py::test_the_assessor_view_does_not_contain_the_answer_key` |
 | The recommended view names exactly the components whose freshness cannot be evidenced, and they are exactly the silent ones | `tests/test_enclave.py::test_the_recommended_view_names_what_it_cannot_evidence` |
 | Two of the eight components announce their input age and six do not | `tests/test_enclave.py::test_the_stack_is_mostly_unfalsifiable_and_that_is_stated` |
+| `audit/offline.json` is still byte-for-byte what the code produces, so the figures above rest on evidence nothing can silently move | `tests/test_enclave.py::test_the_shipped_evidence_regenerates_byte_for_byte` (mutation-checked: `MISS_RATE["a CVE feed transfer"]` 0.22 -> 0.50 leaves every other gate green and fails this one) |
+| The worked example's figures come out of that evidence rather than out of the prose | `tests/test_enclave.py::test_the_worked_example_is_carried_in_the_evidence` (mutation-checked: writing this day's revocation gap as the component's two-year maximum fails both this test and `check_readme_numbers.py`) |
 
 The percentages are not in that table. The 62% collision, the 54% figure and the
 year table are outputs of `scripts/offline_demo.py`: free to re-run,
@@ -172,7 +203,7 @@ in `audit/PREREGISTRATION.txt`, and the discarded run in
 
 ```
 python -m venv .venv && .venv/bin/pip install -e ".[dev]"
-.venv/bin/python -m pytest -q                            # 18 tests
+.venv/bin/python -m pytest -q                            # 21 tests
 .venv/bin/python scripts/offline_demo.py --json audit/offline.json
 ```
 
@@ -181,6 +212,9 @@ Free, no API key. The paid leg prints its plan and exits without `--confirm`:
 ```
 ENV_FILE=~/.secrets/ai.env .venv/bin/python scripts/real_run.py
 ```
+
+With `--confirm` it will not write over an existing `--out`, whose default is
+the stored run below; name a new file, or pass `--force` to replace it.
 
 | run | models | calls | cost | result |
 |---|---|---|---|---|

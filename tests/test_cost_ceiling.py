@@ -90,3 +90,40 @@ def test_the_run_stops_on_the_first_call_that_crosses():
                            call_for=lambda m: _reply(4000),
                            echo=lambda *a, **k: None)
     assert len(records) == 4, f"expected to stop at the 4th call, got {len(records)}"
+
+
+def test_a_paid_run_does_not_overwrite_stored_evidence(tmp_path, monkeypatch,
+                                                       capsys):
+    """--confirm with an existing --out refuses before anything is spent.
+
+    The default --out is the stored paid run. A dry run and a run to a new
+    file are unaffected, and --force is the explicit way to replace it.
+    """
+    import real_run
+
+    stored = tmp_path / "real_run.json"
+    stored.write_text('{"stored": true}\n', encoding="utf-8")
+
+    monkeypatch.setattr(sys, "argv", ["real_run.py", "--confirm",
+                                      "--out", str(stored)])
+    assert real_run.main() == 2
+    assert "already exists" in capsys.readouterr().out
+    assert stored.read_text(encoding="utf-8") == '{"stored": true}\n'
+
+    # A dry run against the same file refuses nothing on that account.
+    monkeypatch.setattr(sys, "argv", ["real_run.py", "--out", str(stored)])
+    real_run.main()
+    assert "already exists" not in capsys.readouterr().out
+
+    # Nor does a confirmed run to a file that does not exist yet, or one with
+    # --force. Both stop later, at the SDK or the key, which is not tested here.
+    for extra in (["--out", str(tmp_path / "new.json")],
+                  ["--out", str(stored), "--force"]):
+        monkeypatch.setattr(sys, "argv", ["real_run.py", "--confirm", *extra])
+        monkeypatch.setattr(real_run, "_api_key", lambda name: (_ for _ in ()).throw(
+            SystemExit("stopped at the key")))
+        try:
+            real_run.main()
+        except SystemExit:
+            pass
+        assert "already exists" not in capsys.readouterr().out

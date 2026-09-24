@@ -1,9 +1,17 @@
 """Which days the models are shown, and why the sample is not random.
 
-A uniform sample of the year would measure the wrong thing. 54% of days carry
-silent staleness, so a random draw hands the model a majority of days where
-"is this enclave within budget?" Is answerable NO, and a model that always
-says no would score well for the wrong reason. The control has to be built in.
+A uniform sample of the year would measure the wrong thing. 44% of days fall in
+the SILENT stratum below, so a random draw hands the model a plurality of days
+where "is this enclave within budget?" Is not answerable from the evidence at
+all, and a model that always refused would score well for the wrong reason. The
+control has to be built in.
+
+44%, not 54%: the larger figure is the row ABOVE this one in the two-year
+table, "something past its budget", which also counts the 68 days on which
+policy_bundle was past budget and the health view SAID so. Those days are the
+ANNOUNCED stratum and they are a different question, so the two rows are easy
+to confuse and scripts/check_readme_numbers.py holds the README to the right
+one.
 
 So the sample is stratified and balanced, in three strata that are genuinely
 different questions:

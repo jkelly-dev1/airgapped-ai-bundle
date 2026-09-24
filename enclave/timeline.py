@@ -164,6 +164,18 @@ def summarize(timeline: list) -> dict:
     any_stale_material = sum(
         1 for d in timeline if set(d.stale) - harmless)
 
+    # What "clean" costs to say. A clean day is a day with nothing MATERIAL
+    # past budget, which is not the same sentence as "nothing was wrong": on
+    # most clean days the free-running clock IS past its own budget, and on
+    # very few is nothing stale at all. Both counts are reported so that the
+    # qualification can be published as a figure rather than as an adjective,
+    # since an adjective is the part a reader has to take on trust.
+    clean_days = sum(1 for d in timeline if not set(d.stale) - harmless)
+    clean_but_clock_past = sum(
+        1 for d in timeline
+        if not set(d.stale) - harmless and set(d.stale) & harmless)
+    nothing_stale_at_all = sum(1 for d in timeline if not d.stale)
+
     return {
         "days": n,
         "days_with_something_stale": any_stale,
@@ -180,5 +192,8 @@ def summarize(timeline: list) -> dict:
         "days_stale_with_nothing_saying_so_excluding_clock": silent_only_material,
         "days_stale_with_nothing_saying_so_excluding_clock_pct":
             round(silent_only_material / n * 100, 1),
+        "days_clean_excluding_clock": clean_days,
+        "days_clean_but_clock_past_budget": clean_but_clock_past,
+        "days_with_nothing_stale_at_all": nothing_stale_at_all,
         "per_component": per_component,
     }

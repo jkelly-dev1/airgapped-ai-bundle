@@ -59,14 +59,26 @@ def rows_collision():
          "distinct views seen on silent days %d" % a["distinct_views_silent"]),
         ("collision:both",
          "views occurring in BOTH strata %d" % a["views_occurring_in_both"]),
+        # The qualifiers are part of the derived string, so this gate
+        # enforces them and they have to survive being checked.
+        # Not "months past budget": the collision is per VIEW, and only 88 of
+        # the 210 ambiguous clean days share their view with a day something
+        # was 60+ days past budget. 64 of them share it with a day on which
+        # nothing was more than 29 days past, and the weakest shares it with a
+        # day ONE day past. What holds of every silent partner day is the
+        # property this page is about: something past budget, and nothing
+        # saying so.
+        # Not "nothing was wrong at all": a clean day is a day with nothing
+        # MATERIAL past budget, and 305 of the 338 have the free-running clock
+        # past its own budget, only 33 nothing stale whatsoever.
         ("collision:clean-rate",
          "-> %d of %d clean days (%s%%) produce a view that also occurs on a "
-         "day something was months past budget"
+         "day something was past budget with nothing saying so"
          % (a["clean_days_ambiguous"], a["clean_days"],
             _trim(a["clean_days_ambiguous_pct"]))),
         ("collision:silent-rate",
          "-> %d of %d silent days (%s%%) produce a view that also occurs on a "
-         "day when nothing was wrong at all"
+         "day when nothing but the clock was stale"
          % (a["silent_days_ambiguous"], a["silent_days"],
             _trim(a["silent_days_ambiguous_pct"]))),
     ]
@@ -88,27 +100,133 @@ def rows_two_years():
     ]
 
 
+def _row_never_stale(y):
+    """The components that CANNOT go stale in this window, named and counted.
+
+    Budget is exactly twice cadence for `model_weights` (180/90) and
+    `container_images` (60/30), so a single missed transfer tops out at
+    2*cadence - 1 and never reaches the budget: two consecutive misses are
+    required and the seed never produces them. The two-year headline is
+    therefore carried by six of the eight rows the table shows, and the page
+    says so, because a table of eight rows otherwise implies eight
+    contributors.
+
+    DERIVED, not asserted, so the sentence tracks the evidence: if a third
+    component fell to zero, or one of these two stopped being zero, the string
+    changes and the gate goes red on a README that still claims two.
+    """
+    never = [(k, c) for k, c in y["per_component"].items()
+             if c["stale_days"] == 0]
+    listing = " and ".join(
+        "`%s` (max age %d d against a %d d budget)"
+        % (k, c["max_age_days"], c["budget_days"]) for k, c in never)
+    return ("prose:never-stale",
+            "%s of the %s components never go past budget at all in this "
+            "window: %s."
+            % (_word(len(never)), _word(len(y["per_component"])).lower(),
+               listing))
+
+
 def prose_figures():
     d = load()
     a, y, s = d["artifact"], d["year"], d["stack"]
-    excl_stale = 100.0 * y["days_with_something_stale_excluding_clock"] / y["days"]
     return [
+        # "the days on which nothing but the free-running clock was past
+        # budget" is the long form, and deliberately so. The short form is "the
+        # days on which the enclave was entirely healthy", which is a DIFFERENT
+        # sentence: the clock is past its budget on most of those days. So the
+        # row below publishes the difference instead of leaving it to a
+        # section further down.
         ("prose:headline",
-         "Over two years, %d%% of the days on which the enclave was entirely "
-         "healthy produce a status artifact that is byte-identical"
-         % round(a["clean_days_ambiguous_pct"])),
-        # The operational half quotes the column excluding the clock, which is
-        # the one the page tells a reader to act on. Deriving it from the
-        # including-clock figure would put 86% in a sentence the page wrote to
-        # avoid exactly that.
+         "Over two years, %d%% of the days on which nothing but the "
+         "free-running clock was past budget produce a status artifact that "
+         "is byte-identical" % round(a["clean_days_ambiguous_pct"])),
+        ("prose:clean-breakdown",
+         "Of those %d days, %d have the free-running clock past its own "
+         "%d-day budget and %d have nothing stale at all."
+         % (y["days_clean_excluding_clock"],
+            y["days_clean_but_clock_past_budget"],
+            y["per_component"]["time_source"]["budget_days"],
+            y["days_with_nothing_stale_at_all"])),
+        # This derives from the whole row. Its sentence has two halves (past
+        # a budget AND nothing reporting it), so the only evidence for it is
+        # the row carrying both:
+        # days_stale_with_nothing_saying_so_excluding_clock.
+        # The row ABOVE it, days_with_something_stale_excluding_clock, is the
+        # near miss and not a synonym: it also counts the 68 days on which
+        # policy_bundle was past budget and the health view SAID so, which is
+        # the exact case the sentence excludes. A gate derived from that row
+        # would demand the wrong number and reject the right one, and nothing
+        # in the output would say which row it meant.
         ("prose:operational",
          "the enclave spends %d%% of its days past a staleness budget with "
-         "nothing anywhere reporting it" % round(excl_stale)),
+         "nothing anywhere reporting it"
+         % round(y["days_stale_with_nothing_saying_so_excluding_clock_pct"])),
         ("prose:split",
          "%s components depend on something outside the boundary. %s can "
          "report their own input age; %s cannot."
          % (_word(s["components"]), _word(s["announces"]), _word(s["silent"]))),
+        _row_never_stale(y),
+        _row_worst_age(y),
+        _row_one_day(d),
     ]
+
+
+def _row_worst_age(y):
+    """The worst staleness anywhere in the window, which is NOT the worked
+    example's day.
+
+    The example day is chosen by how MANY things are silently stale, not by
+    how far past budget any of them is, so its largest gap is 16 days. A
+    reader who takes the example for the worst case gets the size of this
+    effect wrong by an order of magnitude, so the worst case is published
+    beside it, derived, and kept out of the one-day section where it would
+    read as one of that day's figures.
+
+    The clock is excluded, as everywhere else here: it is past budget by
+    construction and saying so about it measures nothing. It would not win
+    this comparison anyway, and that is checked: if it ever did, the derived
+    string would name it and the gate would go red on a README that still
+    names something else.
+    """
+    worst = max(((k, c) for k, c in y["per_component"].items()
+                 if k != "time_source"),
+                key=lambda kc: kc[1]["max_age_days"])
+    key, c = worst
+    return ("prose:worst-age",
+            "`%s` reaches a maximum age of %d days in this window against a "
+            "%d-day budget, %d days past it."
+            % (key, c["max_age_days"], c["budget_days"],
+               c["max_age_days"] - c["budget_days"]))
+
+
+def _row_one_day(d):
+    """The worked example, derived from the run instead of typed by hand.
+
+    The section exists, in the page's own words, "so it is a thing and not a
+    percentage", which makes its one number the easiest in the repository to
+    state from memory and the hardest to notice when it is wrong. On this day
+    the revocation list is 46 days old against a 45-day budget: ONE day past.
+    The same component's two-year MAXIMUM age is 89, it sits in a different
+    table, and "89 days past a 45-day budget" is a fluent sentence that no
+    reader can falsify without re-running the simulation.
+    """
+    od = d.get("one_day")
+    if not od:
+        # A check that cannot look says so. Reporting the README as correct or
+        # as wrong would both be claims about a comparison that never
+        # happened, and this file's whole purpose is to not do that.
+        sys.exit("audit/offline.json carries no one_day block, so the worked "
+                 "example could not be derived and NOTHING about it was "
+                 "checked. Regenerate the evidence:\n"
+                 "  python3 scripts/offline_demo.py --days 730 "
+                 "--json audit/offline.json")
+    listing = ", ".join(
+        "`%s` by %d day%s" % (e["key"], e["days_past"],
+                              "" if e["days_past"] == 1 else "s")
+        for e in od["past_budget"])
+    return ("prose:one-day",
+            "Past budget on day %d: %s." % (od["day"], listing))
 
 
 def _trim(x):

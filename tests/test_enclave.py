@@ -8,6 +8,7 @@ what it claims, not about any component being well designed.
 
 from __future__ import annotations
 
+import json
 import os
 import subprocess
 import sys
@@ -208,8 +209,8 @@ def test_the_assessor_view_does_not_contain_the_answer_key():
     view = assessor_view(day)
     assert "components_that_can_evidence_their_own_freshness" not in view
     assert "unfalsifiable" not in view
-    # And the health output must not leak it either: a component that cannot
-    # report its age must not be distinguishable by an extra key.
+    # The health output must not leak it either: a component that cannot report
+    # its age must not be distinguishable by an extra key.
     silent_entries = [v for k, v in view["reported"].items()
                       if k in unfalsifiable(day)]
     assert all(set(e) == {"status", "detail"} for e in silent_entries)
@@ -232,3 +233,87 @@ def test_the_stack_is_mostly_unfalsifiable_and_that_is_stated():
     assert c["components"] == len(COMPONENTS)
     assert c["silent"] + c["announces"] == c["components"]
     assert c["health_reports_age"] == c["announces"]
+
+
+def test_the_shipped_evidence_regenerates_byte_for_byte(tmp_path):
+    """audit/offline.json must still be what this code produces.
+
+    Every published figure is checked against audit/offline.json by
+    scripts/check_readme_numbers.py, so that file is the evidence the whole
+    page rests on, and a gate that compares prose to a committed artifact says
+    nothing about whether the artifact still matches the code. Without this test a changed constant moves every real number
+    while every other gate stays green: setting
+    MISS_RATE["a CVE feed transfer"] from 0.22 to 0.50 leaves the suite
+    passing, the demo exiting 0 and the checker reporting every figure
+    present, while the two-year result moves from 53.7%/44.4% to 66.2%/56.8%.
+    The README's claim is that the file "can be regenerated and diffed"; this
+    is what does the diffing.
+
+    Byte-for-byte, not value-by-value, because the claim being made about this
+    file is that it regenerates, and a comparison of parsed values would
+    pass on a file whose key order or float formatting had drifted, which is
+    exactly the kind of difference that makes a reviewer distrust a diff.
+
+    It runs the real script in a subprocess instead of calling summarize()
+    here, because what ships is the script's output and an in-process
+    reimplementation would pin this test to a copy of the code instead of to
+    the code.
+    """
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    shipped = os.path.join(root, "audit", "offline.json")
+    # Named, not left to FileNotFoundError. This file is tracked and shipped,
+    # and its absence means the figures rest on nothing, which is a failure
+    # and not a reason to skip; a reader needs to be told which happened.
+    assert os.path.exists(shipped), (
+        "audit/offline.json is missing from the tree at %s, so the published "
+        "figures rest on no evidence at all" % root)
+    fresh = tmp_path / "offline.json"
+    r = subprocess.run(
+        [sys.executable, os.path.join(root, "scripts", "offline_demo.py"),
+         "--days", "730", "--json", str(fresh)],
+        capture_output=True, text=True)
+    assert r.returncode == 0, r.stderr
+    # The regeneration must have happened. Without this, a script that stopped
+    # writing the file would leave the comparison below reading a stale path
+    # or an empty one, and "the shipped evidence is correct" is the one
+    # conclusion this test must never reach without looking.
+    assert fresh.exists() and fresh.stat().st_size > 0, "nothing was written"
+    with open(shipped, encoding="utf-8") as fh:
+        on_disk = fh.read()
+    assert fresh.read_text(encoding="utf-8") == on_disk, (
+        "audit/offline.json is not what scripts/offline_demo.py now produces. "
+        "Regenerate it: python scripts/offline_demo.py --days 730 "
+        "--json audit/offline.json")
+
+
+def test_the_worked_example_is_carried_in_the_evidence(tmp_path):
+    """The one-day section must leave the same trail every other figure does.
+
+    The worked example's figures are the easiest in the repository to state
+    from memory: the day's revocation gap is ONE day past budget, the same
+    component's two-year maximum age is 89, and a sentence naming either is
+    equally fluent. So the day's own arithmetic is emitted into
+    audit/offline.json and re-derived by scripts/check_readme_numbers.py, and
+    this asserts the block is present and internally consistent; a checker
+    reading a block that is not there would be the same defect one level
+    up.
+    """
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    shipped = os.path.join(root, "audit", "offline.json")
+    assert os.path.exists(shipped), (
+        "audit/offline.json is missing from the tree at %s, so the worked "
+        "example rests on no evidence at all" % root)
+    with open(shipped, encoding="utf-8") as fh:
+        one_day = json.load(fh)["one_day"]
+    assert one_day["past_budget"], "no component past budget in the example"
+    day = simulate(730)[one_day["day"] - 1]
+    assert day.day == one_day["day"]
+    for entry in one_day["past_budget"]:
+        assert entry["key"] in day.stale
+        assert entry["age_days"] == day.age_days[entry["key"]]
+        assert entry["days_past"] == (entry["age_days"]
+                                      - BY_KEY[entry["key"]].budget_days)
+        # A component is only PAST a budget by a positive number of days. A
+        # zero here would print "by 0 days" in the README as a finding.
+        assert entry["days_past"] > 0
+    assert {e["key"] for e in one_day["past_budget"]} == set(day.stale)
