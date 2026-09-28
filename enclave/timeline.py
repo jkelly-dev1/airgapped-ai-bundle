@@ -1,4 +1,4 @@
-"""A year inside the boundary: transfers arrive, or they do not, and time passes.
+"""Day by day inside the boundary: transfers arrive, or they do not, and time passes.
 
 Why a timeline and not a snapshot. "Is the enclave current?" Is a question with
 a different answer every day, and the interesting quantity is not whether it is
@@ -14,7 +14,7 @@ enclave does not know a transfer was due. It only knows what it has.
 
 The rates below are stated constants and every result scales with them. They
 are set to a cadence a real program would recognize, a weekly corpus, a
-monthly feed, a quarterly image refresh, with a miss rate that reflects that
+monthly feed, a monthly image mirror, with a miss rate that reflects that
 transfers compete with everything else the same people are doing. They are not
 measurements of any program.
 """
@@ -32,7 +32,7 @@ from .components import BY_KEY, COMPONENTS
 # Cadence and budget are independent numbers and must not be set equal. A
 # refresh scheduled to land exactly on the expiry date makes a component pass
 # unless a transfer is missed AND the arithmetic crosses, which is a knife
-# edge no program would design and which quietly excludes the two
+# edge no program would design and which silently excludes the two
 # longest-budget components from the result. The cadence is how often the
 # process runs; the budget is what the accreditation package allows. Real
 # programs leave headroom, so these do.
@@ -112,7 +112,7 @@ def simulate(days: int = 365, seed: int = 0) -> list:
         # The enclave checks every budget against its own clock, so a drifting
         # clock shifts its idea of how old everything else is. In the
         # flattering direction, since a slow clock makes everything look
-        # younger. The term is computed and reported rather than assumed away.
+        # younger. The term is computed and reported instead of ignored.
         # It comes out at seconds against budgets in days: immaterial, which is
         # the measurement rather than the intuition. See the note on
         # CLOCK_DRIFT_SECONDS_PER_DAY.

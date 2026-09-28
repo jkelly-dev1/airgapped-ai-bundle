@@ -127,3 +127,86 @@ def test_a_paid_run_does_not_overwrite_stored_evidence(tmp_path, monkeypatch,
         except SystemExit:
             pass
         assert "already exists" not in capsys.readouterr().out
+
+
+# ------------------------------------------------ the report over the records
+
+def test_a_failed_call_stays_in_the_report_denominators():
+    """A call that raised is still a call that was asked. Every third call
+    fails here; the report must count those failures in their stratum and
+    keep them in the denominator instead of printing a perfect score over
+    the calls that happened to succeed."""
+    import json
+    from real_run import CORRECT, report
+    from enclave.sampler import sample
+    days = sample(per_stratum=2)
+    n = {"calls": 0}
+
+    def flaky(_client, _model, _prompt):
+        n["calls"] += 1
+        if n["calls"] % 3 == 0:
+            raise RuntimeError("provider unavailable")
+        # Every fifth call answers in prose, so the unparsed column has
+        # something to count and cannot be confused with the failed one.
+        text = ("no object here" if n["calls"] % 5 == 0 else
+                json.dumps({"verdict": "cannot_determine",
+                            "unverifiable": []}))
+        return (text, {"input_tokens": 10, "output_tokens": 10,
+                       "stop_reason": "end_turn"})
+
+    records, _ = run_calls([MODEL], days, "inv", max_cost=1000.0,
+                           client_for=lambda m: None,
+                           call_for=lambda m: flaky,
+                           echo=lambda *a, **k: None)
+    failed = [r for r in records if "error" in r]
+    assert failed and all("stratum" in r for r in failed)
+    # A failed call carries what it was scored against, like any other.
+    for r in failed:
+        if r["condition"] == "assess":
+            assert r["correct"] == CORRECT[r["stratum"]], r
+        else:
+            assert "truth_unverifiable" in r, r
+    lines = []
+    report(records, [MODEL], echo=lines.append)
+    rows = {ln.split()[1]: ln.split() for ln in lines
+            if ln.strip().startswith(MODEL) and "%" not in ln}
+    assert set(rows) == {"clean", "announced", "silent"}, lines
+    for stratum, cols in rows.items():
+        asked = sum(1 for r in records if r["condition"] == "assess"
+                    and r["stratum"] == stratum)
+        assert cols[2].endswith("/%d" % asked), (stratum, cols)
+        in_stratum = [r for r in records if r["condition"] == "assess"
+                      and r["stratum"] == stratum]
+        assert int(cols[4]) == sum(1 for r in in_stratum
+                                   if "error" not in r and not r["parsed"])
+        assert int(cols[5]) == sum(1 for r in in_stratum if "error" in r)
+    assert any(int(c[4]) for c in rows.values()), (
+        "no unparsed reply reached the report, so its column was not tested")
+    assert sum(int(c[-1]) for c in rows.values()) == sum(
+        1 for r in failed if r["condition"] == "assess")
+    right = sum(1 for r in records if r["condition"] == "assess"
+                and r.get("parsed") and r["verdict"] == CORRECT[r["stratum"]])
+    assert sum(int(c[2].split("/")[0]) for c in rows.values()) == right
+    # AUDIT: a failed call is counted under failed, and only there.
+    audit = [r for r in records if r["condition"] == "audit"]
+    row = [ln.split() for ln in lines
+           if ln.strip().startswith(MODEL) and "%" in ln]
+    assert len(row) == 1, lines
+    assert int(row[0][-1]) == sum(1 for r in audit if "error" in r) > 0
+    assert int(row[0][-2]) == sum(1 for r in audit if "error" not in r
+                                  and not r.get("named"))
+
+
+def test_the_stored_paid_run_is_scored_with_the_current_key():
+    """audit/real_run.json is the run the README reports. Each assess record
+    stores the answer it was scored against, and that must be the key in
+    real_run.CORRECT today, or the published table is a score under a key
+    the code no longer states."""
+    import json
+    from real_run import CORRECT
+    path = Path(__file__).resolve().parents[1] / "audit" / "real_run.json"
+    records = json.loads(path.read_text(encoding="utf-8"))["records"]
+    assess = [r for r in records if r.get("condition") == "assess"]
+    assert assess
+    for r in assess:
+        assert r["correct"] == CORRECT[r["stratum"]], r

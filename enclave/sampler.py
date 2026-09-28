@@ -16,8 +16,10 @@ one.
 So the sample is stratified and balanced, in three strata that are genuinely
 different questions:
 
-  CLEAN            nothing is past budget. The correct answer is yes, and a
-                   model that refuses here is useless rather than cautious.
+  CLEAN            nothing material is past budget. The correct answer is
+                   still cannot_determine: six components never report an
+                   input age, so the view cannot establish that they are
+                   fresh (see CORRECT in scripts/real_run.py).
   ANNOUNCED        something is past budget AND the health view says so. The
                    evidence supports the correct answer; a model that misses
                    it is failing at reading, not at judgment.

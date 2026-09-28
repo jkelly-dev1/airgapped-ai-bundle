@@ -21,10 +21,11 @@ Two conditions, and the second is the one that matters.
           evidence. This is a different skill from the first: not "is this
           green light true" but "which of these green lights COULD be false".
 
-Why both. A model that answers cannot_determine to everything scores perfectly
-on ASSESS and has understood nothing. AUDIT is the control: naming the
-unfalsifiable signals requires actually distinguishing them, and the two
-together separate caution from comprehension.
+Why both. A model that answers cannot_determine to everything gets the clean
+and silent days right on ASSESS without understanding anything; only the
+announced days, where the health view states the breach, would catch it. AUDIT
+is the second control: naming the unfalsifiable signals requires actually
+distinguishing them, and the two together separate caution from comprehension.
 
 The strata are balanced, not representative. Equal clean, announced and silent
 days, so no verdict can win by matching the base rate. See enclave/sampler.py.
@@ -82,8 +83,8 @@ MAX_OUTPUT_TOKENS = 4000
 #
 # So within_budget is never derivable. Only an ANNOUNCED component makes a
 # confident verdict possible, and it can only ever be outside_budget.
-# Both models answered exactly this on all 42 days and the original key
-# scored 28 of those as wrong.
+# Both models answered exactly this on all 42 days, and the original key
+# scored their 28 clean-day answers, 14 per model, as wrong.
 CORRECT = {CLEAN: "cannot_determine", ANNOUNCED: "outside_budget",
            SILENT: "cannot_determine"}
 
@@ -168,15 +169,60 @@ def call_openai(client, model, prompt):
                             "stop_reason": getattr(r, "status", None)})
 
 
+def _brace_span_end(text: str, at: int) -> int:
+    """Index just past the brace span opening at `at`, or -1 if it never
+    closes. Braces inside JSON strings do not count."""
+    depth, in_str, esc = 0, False, False
+    for i in range(at, len(text)):
+        c = text[i]
+        if in_str:
+            if esc:
+                esc = False
+            elif c == "\\":
+                esc = True
+            elif c == '"':
+                in_str = False
+        elif c == '"':
+            in_str = True
+        elif c == "{":
+            depth += 1
+        elif c == "}":
+            depth -= 1
+            if depth == 0:
+                return i + 1
+    return -1
+
+
+def first_json_object(text: str) -> dict | None:
+    """The first complete JSON object in `text`, or None.
+
+    Decoded from each "{" in turn, so a reply that carries two objects, or a
+    braced word in prose before the object, still yields the object. One span
+    from the first "{" to the last "}" fails on both.
+    """
+    decoder = json.JSONDecoder()
+    at = text.find("{")
+    while at != -1:
+        try:
+            obj, _ = decoder.raw_decode(text, at)
+        except json.JSONDecodeError:
+            # Resume AFTER this brace span, never inside it: a "{" nested
+            # in a truncated reply is a fragment of it (a line item, a
+            # sub-verdict), not the reply. A span that never closes is a
+            # truncated reply, and there is no object to return.
+            end = _brace_span_end(text, at)
+            if end == -1:
+                return None
+            at = text.find("{", end)
+            continue
+        if isinstance(obj, dict):
+            return obj
+        at = text.find("{", at + 1)
+    return None
+
+
 def parse(text: str) -> dict | None:
-    start, end = text.find("{"), text.rfind("}")
-    if start == -1 or end == -1:
-        return None
-    try:
-        obj = json.loads(text[start:end + 1])
-    except json.JSONDecodeError:
-        return None
-    return obj if isinstance(obj, dict) else None
+    return first_json_object(text)
 
 
 def run_calls(models, days, inv, max_cost, client_for,
@@ -215,8 +261,17 @@ def run_calls(models, days, inv, max_cost, client_for,
                 try:
                     text, usage = call(client_for(model), model, prompt)
                 except Exception as e:                      # noqa: BLE001
-                    records.append({"model": model, "day": day.day,
-                                    "condition": condition, "error": repr(e)})
+                    # Stratum and the expected answer go on the failure too,
+                    # so report() counts it against the day it was asked
+                    # about instead of dropping it from every denominator.
+                    failed = {"model": model, "day": day.day,
+                              "stratum": stratum, "condition": condition,
+                              "parsed": False, "error": repr(e)}
+                    if condition == "assess":
+                        failed["correct"] = CORRECT[stratum]
+                    else:
+                        failed["truth_unverifiable"] = unfalsifiable(day)
+                    records.append(failed)
                     echo(f"  {model} d{day.day} {condition} FAILED: {e}")
                     continue
                 spend[(model, "in")] += usage["input_tokens"]
@@ -346,10 +401,19 @@ def main() -> int:
     return 0
 
 
-def report(records, models) -> None:
-    print("\nASSESS -- verdict against the correct answer, by stratum")
-    print(f"  {'model':<16} {'stratum':<10} {'correct':>9} {'wrong':>7} "
-          f"{'unparsed':>9}")
+def report(records, models, echo=print) -> None:
+    """Every call that was asked counts, including the ones that failed.
+
+    A failed call is a row in its stratum with no verdict: it is never
+    correct, it is counted in `failed`, and it stays in the denominator. In
+    AUDIT a failed or unparsed call named nothing, so every component it
+    should have named is a miss. The `named nothing` column counts replies
+    that came back and named nothing; a failed call is counted under `failed`
+    and not under both.
+    """
+    echo("\nASSESS -- verdict against the correct answer, by stratum")
+    echo(f"  {'model':<16} {'stratum':<10} {'correct':>9} {'wrong':>7} "
+         f"{'unparsed':>9} {'failed':>7}")
     for model in models:
         for stratum in (CLEAN, ANNOUNCED, SILENT):
             rows = [r for r in records if r.get("model") == model
@@ -357,34 +421,38 @@ def report(records, models) -> None:
                     and r.get("stratum") == stratum]
             if not rows:
                 continue
-            ok = sum(1 for r in rows if r.get("verdict") == r.get("correct"))
+            ok = sum(1 for r in rows if r.get("parsed")
+                     and r.get("verdict") == r.get("correct"))
             bad = sum(1 for r in rows if r.get("parsed")
                       and r.get("verdict") != r.get("correct"))
-            unp = sum(1 for r in rows if not r.get("parsed"))
-            print(f"  {model:<16} {stratum:<10} {ok:>5}/{len(rows):<3} "
-                  f"{bad:>7} {unp:>9}")
+            err = sum(1 for r in rows if "error" in r)
+            unp = sum(1 for r in rows if not r.get("parsed")) - err
+            echo(f"  {model:<16} {stratum:<10} {ok:>5}/{len(rows):<3} "
+                 f"{bad:>7} {unp:>9} {err:>7}")
 
-    print("\nAUDIT -- did it name the signals that cannot be verified")
-    print(f"  {'model':<16} {'recall':>18} {'precision':>18} "
-          f"{'named nothing':>14}")
+    echo("\nAUDIT -- did it name the signals that cannot be verified")
+    echo(f"  {'model':<16} {'recall':>18} {'precision':>18} "
+         f"{'named nothing':>14} {'failed':>7}")
     for model in models:
         rows = [r for r in records if r.get("model") == model
-                and r.get("condition") == "audit" and r.get("parsed")]
+                and r.get("condition") == "audit"]
         if not rows:
             continue
         tp = fp = fn = 0
         empty = 0
         for r in rows:
-            named = set(r["named"])
+            named = set(r.get("named") or [])
             truth = set(r["truth_unverifiable"])
-            if not named:
+            if not named and "error" not in r:
                 empty += 1
             tp += len(named & truth)
             fp += len(named - truth)
             fn += len(truth - named)
+        err = sum(1 for r in rows if "error" in r)
         rec = tp / (tp + fn) * 100 if (tp + fn) else 0.0
         prec = tp / (tp + fp) * 100 if (tp + fp) else 0.0
-        print(f"  {model:<16} {rec:>17.1f}% {prec:>17.1f}% {empty:>14}")
+        echo(f"  {model:<16} {rec:>17.1f}% {prec:>17.1f}% {empty:>14} "
+             f"{err:>7}")
 
 
 if __name__ == "__main__":

@@ -27,12 +27,14 @@ LONG = 365 * 5
 
 
 def test_the_simulation_is_deterministic():
-    """Same seed, same year. Two runs that disagree are not comparable and
-    every number in the README compares runs."""
-    a = summarize(simulate(YEAR, seed=1))
-    b = summarize(simulate(YEAR, seed=1))
+    """Same seed, same two years. Two runs that disagree are not comparable
+    and every number in the README compares runs. The window and the seed
+    are the published run's: 2 * YEAR days, seed 0."""
+    a = summarize(simulate(2 * YEAR, seed=0))
+    b = summarize(simulate(2 * YEAR, seed=0))
     assert a == b
-    assert summarize(simulate(YEAR, seed=2)) != a
+    assert a["days"] == 2 * YEAR
+    assert summarize(simulate(2 * YEAR, seed=1)) != a
 
 
 def test_the_measurement_is_the_same_in_any_process():
@@ -65,7 +67,7 @@ def test_every_component_can_actually_go_stale():
     Its cadence/budget pair is then a no-op, its row is a column of zeros, and
     the headline is carried by the others while appearing to be about all
     eight. This is the same defect class as a rule that is never violated:
-    it does not fail, it just quietly stops being part of the measurement.
+    it does not fail, it just stops being part of the measurement.
 
     Checked over five years rather than one, because "rare" and "impossible"
     are different and only the second is a defect.
@@ -80,13 +82,16 @@ def test_every_component_can_actually_go_stale():
 
 def test_transfers_are_actually_missed():
     """If every scheduled transfer landed, nothing would ever be stale and the
-    whole repository would be measuring a miss rate of zero."""
-    tl = simulate(YEAR)
+    whole repository would be measuring a miss rate of zero. Checked for
+    every component over the published two-year window: an age above the
+    cadence means at least one of its transfers was missed."""
+    tl = simulate(2 * YEAR)
     assert any(d.stale for d in tl)
-    ages = [d.age_days["rag_corpus"] for d in tl]
-    cadence = timeline.CADENCE_DAYS["a corpus transfer through the diode"]
-    assert max(ages) > cadence, (
-        "no corpus transfer was ever missed; the miss rates are not firing")
+    for comp in COMPONENTS:
+        cadence = timeline.CADENCE_DAYS[comp.depends_on]
+        assert max(d.age_days[comp.key] for d in tl) > cadence, (
+            f"no {comp.depends_on} was ever missed; its miss rate is not "
+            f"firing")
 
 
 def test_the_health_view_never_reveals_a_silent_component():
@@ -169,7 +174,7 @@ def test_the_clock_term_cannot_change_a_verdict():
     against it. Measured, the drift is seconds against budgets in days. This
     asserts that: setting the drift to zero must change no day's verdict. If
     someone later raises the constant to something that does matter, this
-    fails and the claim has to be argued rather than quietly assumed."""
+    fails and the claim has to be argued instead of assumed."""
     original = timeline.CLOCK_DRIFT_SECONDS_PER_DAY
     with_drift = [d.stale for d in simulate(YEAR)]
     timeline.CLOCK_DRIFT_SECONDS_PER_DAY = 0.0
@@ -214,6 +219,9 @@ def test_the_assessor_view_does_not_contain_the_answer_key():
     silent_entries = [v for k, v in view["reported"].items()
                       if k in unfalsifiable(day)]
     assert all(set(e) == {"status", "detail"} for e in silent_entries)
+    # Nothing else rides along under a new name either: the view is exactly
+    # what a package carries.
+    assert set(view) == {"day", "overall", "stated_budgets", "reported"}
 
 
 def test_the_recommended_view_names_what_it_cannot_evidence():
@@ -230,7 +238,9 @@ def test_the_recommended_view_names_what_it_cannot_evidence():
 
 def test_the_stack_is_mostly_unfalsifiable_and_that_is_stated():
     c = counts()
-    assert c["components"] == len(COMPONENTS)
+    assert c["components"] == len(COMPONENTS) == 8
+    assert (c["announces"], c["silent"]) == (2, 6), (
+        "the README states two announce and six do not")
     assert c["silent"] + c["announces"] == c["components"]
     assert c["health_reports_age"] == c["announces"]
 
@@ -317,3 +327,52 @@ def test_the_worked_example_is_carried_in_the_evidence(tmp_path):
         # zero here would print "by 0 days" in the README as a finding.
         assert entry["days_past"] > 0
     assert {e["key"] for e in one_day["past_budget"]} == set(day.stale)
+
+
+def test_the_checker_rejects_a_changed_published_line(tmp_path):
+    """scripts/check_readme_numbers.py must fail on a changed figure in
+    either document, and name the row it could not find.
+
+    It runs on a copy of the repository, so each edit below is made to a
+    scratch README.md or SAMPLE_RUN.md and never to the shipped ones. The
+    unedited copy must pass first, or a red result would say nothing about
+    the edit.
+    """
+    import shutil
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    skip = shutil.ignore_patterns("__pycache__", "*.pyc")
+    for sub in ("audit", "enclave", "scripts", "tests"):
+        shutil.copytree(os.path.join(root, sub), tmp_path / sub, ignore=skip)
+    for name in ("README.md", "SAMPLE_RUN.md"):
+        shutil.copy(os.path.join(root, name), tmp_path / name)
+    checker = [sys.executable,
+               str(tmp_path / "scripts" / "check_readme_numbers.py")]
+
+    def check():
+        return subprocess.run(checker, capture_output=True, text=True,
+                              cwd=str(tmp_path))
+
+    r = check()
+    assert r.returncode == 0, r.stdout + r.stderr
+    edits = [
+        ("SAMPLE_RUN.md", "views occurring in BOTH strata        134",
+         "views occurring in BOTH strata        135", "sample:offline"),
+        ("SAMPLE_RUN.md", "134 distinct views occur",
+         "135 distinct views occur", "sample:both"),
+        ("SAMPLE_RUN.md", "28 answers", "27 answers", "sample:rekey"),
+        ("SAMPLE_RUN.md", "42 days balanced 14/14/14",
+         "42 days balanced 14/14/12", "sample:design"),
+        ("README.md", "One day past budget is not",
+         "Two days past budget is not", "prose:one-day-lead"),
+        ("README.md", "The 62% collision", "The 72% collision",
+         "prose:collision-quoted"),
+    ]
+    for name, old, new, tag in edits:
+        path = tmp_path / name
+        text = (open(os.path.join(root, name), encoding="utf-8").read())
+        assert text.count(old) == 1, (name, old)
+        path.write_text(text.replace(old, new), encoding="utf-8")
+        r = check()
+        path.write_text(text, encoding="utf-8")
+        assert r.returncode == 1, (tag, r.stdout)
+        assert "[%s]" % tag in r.stdout, (tag, r.stdout)

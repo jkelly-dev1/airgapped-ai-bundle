@@ -11,12 +11,13 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # One job, and it installs nothing but pytest. Every number in the README
-  # (the staleness table, the silence percentages, and the indistinguishability
-  # proof that leads it) comes from code importing only the standard library. A
-  # repository about a system that cannot reach the network should be able to
-  # prove its own claims without reaching one. If that stops being true this
-  # job goes red, which is the signal rather than an inconvenience.
+  # One job, and it installs nothing but pytest. Every offline number in the
+  # README (the staleness table, the silence percentages, and the
+  # indistinguishability proof that leads it) comes from code importing only
+  # the standard library. A repository about a system that cannot reach the
+  # network should be able to prove its own claims without reaching one. If
+  # that stops being true this job goes red, which is the signal rather than
+  # an inconvenience.
   measurement:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -72,9 +73,10 @@ jobs:
             --json "${RUNNER_TEMP}/offline.json" > /dev/null
           diff -u audit/offline.json "${RUNNER_TEMP}/offline.json"
 
-      # A README is prose and drifts; audit/offline.json is evidence and does
-      # not. This rebuilds each published figure from the JSON and requires the
-      # exact string, so a re-run that shifts a number fails loudly rather than
-      # leaving the document quietly wrong.
+      # A README is prose and drifts; audit/*.json is evidence and does not.
+      # This rebuilds each published figure from the JSON, and the paid
+      # block from real_run.report(), and requires the exact string in
+      # README.md and SAMPLE_RUN.md, so a re-run that shifts a number fails
+      # loudly instead of leaving a wrong figure in the document.
       - name: README numbers match the shipped results
         run: python scripts/check_readme_numbers.py

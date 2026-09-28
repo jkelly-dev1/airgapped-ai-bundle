@@ -1,14 +1,16 @@
 # SAMPLE_RUN
 
 This is what the commands printed, copied out as they printed it. The offline
-half regenerates with `scripts/offline_demo.py`; the paid half is in `audit/`.
+half regenerates with `scripts/offline_demo.py`. The paid block is
+`real_run.report()` run over the stored `audit/real_run.json`, and
+`scripts/check_readme_numbers.py` requires it here verbatim.
 
 ## Tests
 
 ```
 $ .venv/bin/python -m pytest -q
-.....................                                                    [100%]
-21 passed in 0.74s
+..........................                                               [100%]
+26 passed in 2.04s
 ```
 
 Three of them exist because of defects they caught: every component must be
@@ -78,24 +80,24 @@ wrote audit/offline.json
 
 ## The paid measurement
 
-The capture cost 168 calls, two providers, $0.69. Both models handed the health output and the
-stated budgets, what an accreditation review receives, over 42 days balanced
-14/14/14 across clean, announced and silent.
+The capture cost 168 calls, two providers, $0.69. Both models were handed the
+health output and the stated budgets, what an accreditation review receives,
+over 42 days balanced 14/14/14 across clean, announced and silent.
 
 ```
-ASSESS: verdict against what the evidence can support
-  model            stratum      correct   wrong  unparsed
-  claude-sonnet-5  clean         14/14        0         0
-  claude-sonnet-5  announced     14/14        0         0
-  claude-sonnet-5  silent        14/14        0         0
-  gpt-5.4          clean         14/14        0         0
-  gpt-5.4          announced     14/14        0         0
-  gpt-5.4          silent        14/14        0         0
+ASSESS -- verdict against the correct answer, by stratum
+  model            stratum      correct   wrong  unparsed  failed
+  claude-sonnet-5  clean         14/14        0         0       0
+  claude-sonnet-5  announced     14/14        0         0       0
+  claude-sonnet-5  silent        14/14        0         0       0
+  gpt-5.4          clean         14/14        0         0       0
+  gpt-5.4          announced     14/14        0         0       0
+  gpt-5.4          silent        14/14        0         0       0
 
-AUDIT: did it name the signals that cannot be verified
-  model                        recall          precision  named nothing
-  claude-sonnet-5              100.0%             100.0%              0
-  gpt-5.4                      100.0%             100.0%              0
+AUDIT -- did it name the signals that cannot be verified
+  model                        recall          precision  named nothing  failed
+  claude-sonnet-5              100.0%             100.0%              0       0
+  gpt-5.4                      100.0%             100.0%              0       0
 ```
 
 BOTH MODELS ANSWERED `cannot_determine` on every clean and every silent day, and
@@ -107,8 +109,10 @@ What went wrong with this measurement, twice. The first run had
 key, and was voided and re-run. Removing it changed nothing, which is how I
 learned it was not the cause. The cause was my SCORING KEY: it graded a clean
 day as `within_budget`, which asks for an assertion the evidence cannot support,
-because six components never report an input age. Both models were right on all
-42 days and I had marked 28 wrong.
+because six components never report an input age. Under that key the 14 clean
+days of each model, 28 answers, were marked wrong. The stored run is scored
+with `cannot_determine` on clean days, a key chosen after the answers were
+seen; the README says what argues for it.
 
 The offline proof in section 3 is what the paid run corroborates, and it is
 free: 134 distinct views occur in both strata.
@@ -117,5 +121,6 @@ free: 134 distinct views occur in both strata.
 
 Any vendor's software, any program's transfer discipline, or whether the gap
 is actually intact. Cadences and miss rates are stated constants in
-`enclave/timeline.py` and every number in section 2 scales with them. Section 3
-is a property of the artifact's shape and does not.
+`enclave/timeline.py` and every rate here scales with them, the collision rate
+in section 3 included. Only the possibility of a collision is a property of
+the artifact's shape.

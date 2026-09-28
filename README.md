@@ -72,8 +72,11 @@ the silently-stale one:
      occurs on a day when nothing but the clock was stale
 ```
 
-This is a property of the artifact's shape, not of any particular failure rate.
-Any cadences that produce both strata produce the collision.
+Whether a collision can happen at all is a property of the artifact's shape: a
+view that omits input age has no field in which a clean day and a silent day
+could differ. How often it happens is not. The rate moves with the cadences,
+the miss rates and the length of the window, like every figure in the two-year
+table below, and a short enough window can hold both strata and no collision.
 
 ## One day, so it is a thing and not a percentage
 
@@ -95,8 +98,8 @@ Past budget on day 226: `model_revocation` by 1 day, `rag_corpus` by 2 days,
 `eval_baseline` by 16 days, `time_source` by 129 days. Every light is green. The
 stack is not lying: each component is serving what it has, correctly.
 
-A day past a 45-day budget is not the dramatic case, and this is not the
-dramatic day. It is the day the run picks, and it is picked by how MANY things
+One day past budget is not the dramatic case, and this is not the dramatic
+day. It is the day the run picks, and it is picked by how MANY things
 are silently stale rather than by how far past budget any of them is. The worst
 gap is elsewhere in the same window: `eval_baseline` reaches a maximum age of
 314 days in this window against a 120-day budget, 194 days past it. Every
@@ -139,30 +142,45 @@ clean, announced and silent, and asked whether the enclave was within its
 budgets, with `cannot_determine` available.
 
 ```
-  model            stratum      correct
-  claude-sonnet-5  clean          14/14
-  claude-sonnet-5  announced      14/14
-  claude-sonnet-5  silent         14/14
-  gpt-5.4          (identical)    42/42
+ASSESS -- verdict against the correct answer, by stratum
+  model            stratum      correct   wrong  unparsed  failed
+  claude-sonnet-5  clean         14/14        0         0       0
+  claude-sonnet-5  announced     14/14        0         0       0
+  claude-sonnet-5  silent        14/14        0         0       0
+  gpt-5.4          clean         14/14        0         0       0
+  gpt-5.4          announced     14/14        0         0       0
+  gpt-5.4          silent        14/14        0         0       0
 
-  AUDIT: name the signals whose freshness cannot be verified
-  claude-sonnet-5   recall 100.0%   precision 100.0%
-  gpt-5.4           recall 100.0%   precision 100.0%
+AUDIT -- did it name the signals that cannot be verified
+  model                        recall          precision  named nothing  failed
+  claude-sonnet-5              100.0%             100.0%              0       0
+  gpt-5.4                      100.0%             100.0%              0       0
 ```
 
-Both refused to certify on every non-announced day, and both named all six
-unfalsifiable components with no false positives. That is not a model failure
+Both refused to certify on every clean and silent day, both said
+`outside_budget` on every announced day, and both named every component that
+cannot report its age, with no false positives. That is not a model failure
 and it is not model excellence; it is corroboration by two independent judges
 that the artifact supports exactly one conclusion. The models are not the weak
 link. The artifact is, and they demonstrate it by being unable to do anything
 else with it.
 
 This measurement was designed to catch models trusting green lights, and it
-caught a scoring key of mine instead. The original key graded a clean day as
+caught a scoring key of mine instead. The pre-registration, written before the
+run and kept in `audit/PREREGISTRATION.txt`, graded a clean day as
 `within_budget`, which demands an assertion the evidence cannot support: no
-view establishes freshness when six components never report it. Both models
-answered correctly on all 42 days and I marked 28 of them wrong. The
-pre-registration, written before the run, is in `audit/PREREGISTRATION.txt`.
+view establishes freshness when six components never report it. Under that
+key, 28 of the 84 ASSESS answers were marked wrong, every one of them a clean
+day.
+
+The table above is scored with a different key, `cannot_determine` on clean
+days, chosen after the answers were seen, so it departs from the
+pre-registration. The answers themselves did not change: the voided first run
+and the stored run agree on all 168 calls. What argues against reading the
+clean-day score as a model that refuses everything is the part of the design
+the new key did not touch: both models said `outside_budget` on every
+announced day, and in AUDIT both named exactly the components that cannot
+report their age.
 
 ## Claims backed by tests
 
@@ -178,7 +196,7 @@ pre-registration, written before the run, is in `audit/PREREGISTRATION.txt`.
 | Stale, silently stale, and stale-with-nothing-saying-so are nested, so the headline is a fraction of the row above it | `tests/test_enclave.py::test_the_three_counts_are_nested` |
 | The silence is produced by the component behaviors and by nothing else | `tests/test_enclave.py::test_making_everything_announce_drives_the_silence_to_zero`, `::test_making_everything_silent_makes_every_stale_day_silent` (mutation-checked both ways: all-announcing drives the silent days to zero, all-silent makes every stale day a silent one) |
 | The clock term cannot change any other verdict, which is why the right-hand column is the one to act on | `tests/test_enclave.py::test_the_clock_term_cannot_change_a_verdict` (mutation-checked: set the drift to zero and no day's verdict moves) |
-| The view handed to a model does not contain the answer key | `tests/test_enclave.py::test_the_assessor_view_does_not_contain_the_answer_key` |
+| The view handed to a model does not contain the answer key, and carries exactly the day, the overall status, the stated budgets and the component reports | `tests/test_enclave.py::test_the_assessor_view_does_not_contain_the_answer_key` |
 | The recommended view names exactly the components whose freshness cannot be evidenced, and they are exactly the silent ones | `tests/test_enclave.py::test_the_recommended_view_names_what_it_cannot_evidence` |
 | Two of the eight components announce their input age and six do not | `tests/test_enclave.py::test_the_stack_is_mostly_unfalsifiable_and_that_is_stated` |
 | `audit/offline.json` is still byte-for-byte what the code produces, so the figures above rest on evidence nothing can silently move | `tests/test_enclave.py::test_the_shipped_evidence_regenerates_byte_for_byte` (mutation-checked: `MISS_RATE["a CVE feed transfer"]` 0.22 -> 0.50 leaves every other gate green and fails this one) |
@@ -203,7 +221,7 @@ in `audit/PREREGISTRATION.txt`, and the discarded run in
 
 ```
 python -m venv .venv && .venv/bin/pip install -e ".[dev]"
-.venv/bin/python -m pytest -q                            # 21 tests
+.venv/bin/python -m pytest -q                            # 26 tests
 .venv/bin/python scripts/offline_demo.py --json audit/offline.json
 ```
 
@@ -225,12 +243,13 @@ The void run is kept as `audit/real_run_VOID_answer_key_in_prompt.json`. A
 discarded measurement that leaves no trace is the thing this portfolio's bug
 logs keep objecting to.
 
-## What this does not measure
+## Limits
 
 - **Any vendor's software.** Every component is a pattern, and the behavior
   assigned to it is the behavior that pattern usually has, not a test result.
 - **Any program's transfer discipline.** Cadences and miss rates are stated
-  constants and every number in section 2 scales with them. Section 3 does not.
+  constants and every rate on this page scales with them, the collision rate
+  included.
 - **Whether the network is actually severed.** Auditing egress by observation
   rather than by documentation is a real and separate exercise; this repository
   assumes the gap and asks what happens behind it.
@@ -242,7 +261,7 @@ logs keep objecting to.
 
 ```
 enclave/components.py       the eight components and what each does when stale
-enclave/timeline.py         two years of transfers landing, or not
+enclave/timeline.py         transfers landing, or not, day by day
 enclave/health.py           truth view, health view, assessor view, recommended
 enclave/sampler.py          balanced strata, so no verdict wins on base rate
 enclave/indistinguishable.py  the proof that needs no model
@@ -278,8 +297,7 @@ means when it cannot be refreshed at all.
 [ai-compliance-checker](https://github.com/jkelly-dev1/ai-compliance-checker)
 measures the same boundary from the other side, what fraction of a regulatory
 decision can be made without ever being wrong, and reaches the same place from a
-different direction: the honest answer is often that the evidence does not
-support one.
+different direction: often the evidence does not support a decision at all.
 
 ## License
 

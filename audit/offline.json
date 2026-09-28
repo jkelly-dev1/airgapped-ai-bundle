@@ -168,7 +168,47 @@
   },
   "one_day": {
     "day": 226,
+    "truth_stale": [
+      "model_revocation",
+      "rag_corpus",
+      "eval_baseline",
+      "time_source"
+    ],
     "health_overall": "ok",
+    "health_components": {
+      "model_weights": {
+        "status": "ok",
+        "detail": "serving normally"
+      },
+      "model_revocation": {
+        "status": "ok",
+        "detail": "serving normally"
+      },
+      "policy_bundle": {
+        "status": "ok",
+        "detail": "current"
+      },
+      "cve_feed": {
+        "status": "ok",
+        "detail": "serving normally"
+      },
+      "container_images": {
+        "status": "ok",
+        "detail": "current"
+      },
+      "rag_corpus": {
+        "status": "ok",
+        "detail": "serving normally"
+      },
+      "eval_baseline": {
+        "status": "ok",
+        "detail": "serving normally"
+      },
+      "time_source": {
+        "status": "ok",
+        "detail": "serving normally"
+      }
+    },
     "past_budget": [
       {
         "key": "model_revocation",

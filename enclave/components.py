@@ -76,9 +76,7 @@ class Component:
 # deployment has one, with the budget an accreditation package typically
 # states and the behavior the component typically has.
 #
-# The budgets are the conventional ones named in the operator's library notes:
-# OS patches 30 days, container images 90 days. The rest are set to the same
-# order of magnitude and are listed here, because every result in this
+# The budgets are stated constants, listed here because every result in this
 # repository scales with them.
 COMPONENTS = (
     Component(

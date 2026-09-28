@@ -4,7 +4,7 @@
     python scripts/offline_demo.py
     python scripts/offline_demo.py --days 730 --json audit/offline.json
 
-FOUR QUESTIONS:
+Four questions:
 
   1 THE STACK        how much of it can report its own input freshness
   2 THE YEAR         how much of it is spent past a staleness budget, and how
@@ -16,9 +16,10 @@ FOUR QUESTIONS:
 
 What this models and what it does not. A deployment PATTERN, not any vendor's
 software. Cadences, miss rates and budgets are stated constants in
-enclave/timeline.py and every result scales with them. Question 3 is the
-exception and is the reason it leads the README: it is a property of the
-artifact's SHAPE, and it holds for any rates that produce both strata.
+enclave/timeline.py and every result scales with them, question 3 included.
+What question 3 adds is that a collision is POSSIBLE at all: a view that omits
+input age has no field in which a clean day and a silent one could differ. How
+often they collide moves with the cadences, the miss rates and the window.
 """
 
 from __future__ import annotations
@@ -93,9 +94,10 @@ def main() -> int:
     # so" rather than "months past budget", because the collision is per VIEW:
     # a clean day's view is shared with SOME silent day, and only 88 of the
     # 210 share it with a day something was 60+ days past budget. 64 share it
-    # with a day on which nothing was more than 29 days past, and the weakest
-    # shares it with a day ONE day past. What holds of EVERY silent partner
-    # day is what the line says, and it is also the property being measured.
+    # only with days on which nothing was more than 29 days past, and the
+    # weakest shares it with a day ONE day past. What holds of EVERY silent
+    # partner day is what the line says, and it is also the property being
+    # measured.
     if not ind["clean_days"] or not ind["silent_days"]:
         print(f"   NOT MEASURED: this window has {ind['clean_days']} clean and "
               f"{ind['silent_days']} silent day(s), so there was no")
@@ -147,7 +149,11 @@ def main() -> int:
         # it, as it holds every other published figure here.
         one_day = {
             "day": worst.day,
+            "truth_stale": list(t["stale"]),
             "health_overall": h["overall"],
+            "health_components": {
+                key: {"status": e["status"], "detail": e["detail"]}
+                for key, e in h["components"].items()},
             "past_budget": [
                 {"key": k,
                  "age_days": worst.age_days[k],
@@ -159,7 +165,7 @@ def main() -> int:
     else:
         # Saying why, instead of printing nothing. Dropping the section in
         # silence is the same defect as a fixed conclusion over an empty
-        # comparison, one step quieter: a reader who asked for four
+        # comparison, with less output: a reader who asked for four
         # measurements and got three cannot tell an empty result from a
         # section that was never reached.
         print(f"\n4. ONE DAY: none to show. No day in this {args.days}-day "

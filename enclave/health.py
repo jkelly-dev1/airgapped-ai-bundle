@@ -7,7 +7,7 @@ indistinguishable from a component refreshed an hour ago, so the health view is
 not a lossy summary of the truth; it is a DIFFERENT OBJECT, and no amount of
 reading it more carefully recovers what it never contained.
 
-Three views, deliberately separate objects:
+Three views, kept as separate objects:
 
   truth_view    every component's real input age. Nothing inside the enclave
                 can produce this; the simulation knows it because it built it.
@@ -67,13 +67,13 @@ def assessor_view(day) -> dict:
     and the conclusion does not follow: the budgets describe an intent and the
     health view describes six components that cannot report on it.
 
-    This view deliberately does not say which components can evidence their
-    own freshness, because a real package does not say so. Including that
-    list makes the view an ANSWER KEY and voids any measurement taken against
-    it: both models read it, apply the only rule it supports, "six of eight
-    cannot be evidenced, so nothing can be determined", and return
-    cannot_determine on every clean day as well as every silent one. That is
-    correct reasoning from a prompt that should never contain the field. See
+    This view does not say which components can evidence their own
+    freshness, because a real package does not say so. Including that list
+    makes the view an ANSWER KEY, and a measurement taken against it is void
+    whatever the models answer. The first paid run did include it and was
+    voided. Re-run without it, both models gave the same answer on every one
+    of the 168 calls (audit/real_run_VOID_answer_key_in_prompt.json against
+    audit/real_run.json), so the list was not what drove their verdicts. See
     recommended_view() for where it belongs.
     """
     health = health_view(day)

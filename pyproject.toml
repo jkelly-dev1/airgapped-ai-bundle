@@ -1,7 +1,7 @@
 [project]
 name = "airgapped-ai-bundle"
 version = "0.1.0"
-description = "When the network is removed, which failures are silent -- measured over a year inside the boundary"
+description = "When the network is removed, which failures are silent -- measured over two years inside the boundary"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }

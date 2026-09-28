@@ -8,14 +8,14 @@ actually receives, and count how many distinct views occur in BOTH the clean
 stratum and the silent one.
 
 A view that occurs in both is a view that cannot distinguish an enclave inside
-its budgets from one months past them. Not "is hard to distinguish". The bytes
-are identical, so no reader, no checklist, no reviewer and no model can tell
-them apart, because there is nothing there to tell apart.
+its budgets from one past budget with nothing saying so. Not "is hard to
+distinguish". The bytes are identical, so no reader, no checklist, no reviewer
+and no model can tell them apart, because there is nothing there to tell apart.
 
-The day number is excluded from the comparison, deliberately. Two views that
-differ only in the date are the same evidence about different days; leaving the
-date in would make every view unique and the count would be zero for a reason
-that has nothing to do with what the artifact contains.
+The day number is left out of the comparison. Two views that differ only in
+the date are the same evidence about different days; leaving the date in
+would make every view unique and the count would be zero for a reason that has
+nothing to do with what the artifact contains.
 """
 
 from __future__ import annotations
